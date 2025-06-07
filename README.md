@@ -21,10 +21,12 @@ Markdown 书写指令基本需求
 ## VASP相关脚本
 • VASP-scripts/:DeepMD相关脚本
 ```python
-outcar_vasp2raw.py          #将OUTCAR转换为DeePMD的输入文件
+outcar_vasp2raw.py          #将OUTCAR转换为DeePMD的输入文件（基于dpdata）
+outcar_vasp2extxyz.py       #将OUTCAR转换为MACE的输入文件 (基于ase)
+
 ```
-## DeepMD相关脚本
-• DeepMD-scripts/:DeepMD相关脚本
+## Plot相关脚本
+• Plot/:画图相关脚本
 ```python
-         #将OUTCAR转换为
+plot-dp-test.py             #将deepmd输出文件进行画图（基于matplotlib)
 ```
