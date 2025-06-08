@@ -25,6 +25,15 @@ outcar_vasp2raw.py          #将OUTCAR转换为DeePMD的输入文件（利用 dp
 outcar_vasp2extxyz.py       #将OUTCAR转换为MACE的输入文件 (利用 ase package)
 
 ```
+
+## lammps相关脚本
+• Lammps-scripts/Lammps相关脚本
+```python
+run-msd-mace.in             #运行lammps的NVT系统MD，输出msd数据存储到msd_results.txt;
+```
+
+
+
 ## plot相关脚本
 • plots/:画图相关脚本
 ```python

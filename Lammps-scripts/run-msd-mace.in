@@ -1,0 +1,110 @@
+#
+units           metal       # Units system: metal (Angstrom, ps, eV, etc.)
+dimension       3           # 3D simulation
+boundary        p p p       # Periodic boundary conditions in all directions (x, y, z)
+timestep        0.001       # Simulation timestep: 0.001 ps
+atom_style      atomic      # Atomic style for atoms
+atom_modify     map yes     # Enable atom mapping
+newton          on          # Enable Newton's third law for pairwise interactions
+
+# Read atom data from input file
+read_data       data-bigcell.input
+
+# -------------------- Restart Setup --------------------
+# This command enables saving the simulation state for restarting.
+# It will save restart files every 10,000 steps.
+# 'restart.10000' will be an incremental file (e.g., restart.10000, restart.20000, etc.)
+# 'restart.final' will always be the latest restart file, overwritten each time.
+restart         10000 restart.10000 restart.final
+
+# --- To continue a previous simulation from a restart file: ---
+# If you are restarting a simulation, you typically need to:
+# 1. Comment out the 'read_data' line above.
+# 2. Comment out the 'velocity' and 'fix 1 all nvt' lines below.
+# 3. Uncomment and modify the 'read_restart' line below to point to your desired restart file.
+#    For example, if your last successful restart file was 'restart.final', use that.
+# read_restart restart.final
+# -----------------------------------------------------------
+
+# -------------------- Interatomic Potentials --------------------
+# Load Deep Potential model for interatomic interactions
+pair_style mace no_domain_decomposition
+pair_coeff * * mace_small_run-3.model-lammps.pt Na O P Si Zr
+
+# -------------------- Simulation Settings --------------------
+# Initialize atom velocities for a temperature of 300 K
+# (Only needed for a fresh start. Comment out if using read_restart.)
+velocity        all create 300 12345 rot yes dist gaussian
+
+# Apply NVT ensemble (constant Number of particles, Volume, and Temperature)
+# The temperature is set to 300 K, with a damping parameter of 0.1 time units.
+# (Only needed for a fresh start. Comment out if using read_restart.)
+fix             1 all nvt temp 300 300 0.1
+
+# -------------------- Output Settings - Thermodynamics --------------------
+# Set thermodynamic output frequency to every 100 steps
+thermo          100
+# Customize thermodynamic output style
+thermo_style    custom step temp pe ke etotal press pxx pyy pzz pxy pxz pyz
+# Ensure thermodynamic output is flushed to file immediately
+thermo_modify   flush yes
+
+# Define variables for thermodynamic output
+variable        myStep equal step
+variable        myTemp equal temp
+variable        myPE equal pe
+variable        myKE equal ke
+variable        myTotE equal etotal
+variable        myPress equal press
+variable        myPxx equal pxx
+variable        myPyy equal pyy
+variable        myPzz equal pzz
+variable        myPxy equal pxy
+variable        myPxz equal pxz
+variable        myPyz equal pyz
+
+# Print thermodynamic data to 'thermo_results.txt' every 100 steps
+# 'append no' means the file will be overwritten or created fresh each run.
+# If you want to append data when restarting, change to 'append yes', but be careful with data integrity.
+fix             thermo_out all print 100 "${myStep} ${myTemp} ${myPE} ${myKE} ${myTotE} ${myPress} ${myPxx} ${myPyy} ${myPzz} ${myPxy} ${myPxz} ${myPyz}" file thermo_results.txt title "# Step Temp(K) PE(eV) KE(eV) TotE(eV) Press(kBar) Pxx Pyy Pzz Pxy Pxz Pyz" screen no append no
+
+# -------------------- Output Settings - Trajectory --------------------
+# Dump atom coordinates to 'traj.lammpstrj' every 100 steps for trajectory analysis (e.g., MSD)
+dump            1 all custom 100 traj.lammpstrj id type x y z
+# Sort atoms by ID in the dump file
+# 'append yes' means new trajectory data will be added to the end of the file when restarting.
+dump_modify     1 sort id append yes
+
+# -------------------- MSD Calculation Setup --------------------
+# Group atoms by type for individual MSD calculations
+# (Assuming type 1=Na, 2=O, 3=P, 4=Si, 5=Zr based on your pair_coeff line)
+group           Na_Group type 1
+group           O_Group  type 2
+group           P_Group  type 3
+group           Si_Group type 4
+group           Zr_Group type 5
+
+# Compute Mean Squared Displacement (MSD) for each group
+# 'com yes' ensures the center of mass motion is removed to calculate true diffusion.
+compute         msd_Na Na_Group msd com yes
+compute         msd_O  O_Group  msd com yes
+compute         msd_P  P_Group  msd com yes
+compute         msd_Si Si_Group msd com yes
+compute         msd_Zr Zr_Group msd com yes
+
+# Define variables to access the total MSD component (the 4th column of compute msd output, which is r^2)
+variable        msd_Na equal c_msd_Na[4]
+variable        msd_O  equal c_msd_O[4]
+variable        msd_P  equal c_msd_P[4]
+variable        msd_Si equal c_msd_Si[4]
+variable        msd_Zr equal c_msd_Zr[4]
+
+# Print MSD data to 'msd_results.txt' every 100 steps
+# 'append no' means the file will be overwritten or created fresh each run.
+# For MSD, it's generally recommended to start a new file or manage appending carefully,
+# as MSD is time-dependent and calculated from the start of the 'compute msd' command.
+fix             msd_out all print 100 "${myStep} ${msd_Na} ${msd_O} ${msd_P} ${msd_Si} ${msd_Zr}" file msd_results.txt title "# Step MSD_Na(A^2) MSD_O(A^2) MSD_P(A^2) MSD_Si(A^2) MSD_Zr(A^2)" screen no append no
+
+# -------------------- Run Simulation --------------------
+# Run the simulation for 1,000,000 timesteps
+run             1000000
