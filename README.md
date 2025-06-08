@@ -36,5 +36,5 @@ plot-dp-test.py             #将deepmd输出文件进行画图（基于matplotli
 check_density.py          #处理结构的密度（利用 ase package python check_axis.py  *.vasp)
 check_axis.py             #处理结构的abc以及aplha beta gamma晶格参数 执行方式python check_axis.py  *.vasp)
 check_nd.py               #处理结构得到中子衍射数据(利用 deby package) 
-
+change_poscar2xyz.py      #转换结构形式，获得xyz格式的文件
 ```
