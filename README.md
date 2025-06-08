@@ -21,8 +21,8 @@ Markdown 书写指令基本需求
 ## VASP相关脚本
 • VASP-scripts/:DeepMD相关脚本
 ```python
-outcar_vasp2raw.py          #将OUTCAR转换为DeePMD的输入文件（基于dpdata）
-outcar_vasp2extxyz.py       #将OUTCAR转换为MACE的输入文件 (基于ase)
+outcar_vasp2raw.py          #将OUTCAR转换为DeePMD的输入文件（利用 dpdata package）
+outcar_vasp2extxyz.py       #将OUTCAR转换为MACE的输入文件 (利用 ase package)
 
 ```
 ## plot相关脚本
@@ -30,9 +30,11 @@ outcar_vasp2extxyz.py       #将OUTCAR转换为MACE的输入文件 (基于ase)
 ```python
 plot-dp-test.py             #将deepmd输出文件进行画图（基于matplotlib)
 ```
-## struc相关脚本
-• struc/:结构处理的相关脚本
+## strucs相关脚本
+• strucs-scripts/结构处理:的相关脚本
 ```python
-check_density.py          #处理结构的密度（基于ase python check_axis.py  *.vasp)
+check_density.py          #处理结构的密度（利用 ase package python check_axis.py  *.vasp)
 check_axis.py             #处理结构的abc以及aplha beta gamma晶格参数 执行方式python check_axis.py  *.vasp)
+check_nd.py               #处理结构得到中子衍射数据(利用 deby package) 
+
 ```
