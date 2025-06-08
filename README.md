@@ -25,8 +25,14 @@ outcar_vasp2raw.py          #将OUTCAR转换为DeePMD的输入文件（基于dpd
 outcar_vasp2extxyz.py       #将OUTCAR转换为MACE的输入文件 (基于ase)
 
 ```
-## Plot相关脚本
-• Plot/:画图相关脚本
+## plot相关脚本
+• plots/:画图相关脚本
 ```python
 plot-dp-test.py             #将deepmd输出文件进行画图（基于matplotlib)
+```
+## struc相关脚本
+• struc/:结构处理的相关脚本
+```python
+check_density.py          #处理结构的密度（基于ase python check_axis.py  *.vasp)
+check_axis.py             #处理结构的abc以及aplha beta gamma晶格参数 执行方式python check_axis.py  *.vasp)
 ```
