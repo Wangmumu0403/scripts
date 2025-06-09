@@ -21,15 +21,15 @@ Markdown 书写指令基本需求
 ## VASP相关脚本
 • VASP-scripts/:DeepMD相关脚本
 ```python
-outcar_vasp2raw.py          #将OUTCAR转换为DeePMD的输入文件（利用 dpdata package）
-outcar_vasp2extxyz.py       #将OUTCAR转换为MACE的输入文件 (利用 ase package)
+outcar_vasp2raw.py                   #将OUTCAR转换为DeePMD的输入文件（利用 dpdata package）
+outcar_vasp2extxyz.py                #将OUTCAR转换为MACE的输入文件 (利用 ase package)
 
 ```
 
 ## lammps相关脚本
 • Lammps-scripts/Lammps相关脚本
 ```python
-run-msd-mace.in             #运行lammps的NVT系统MD，输出msd数据存储到msd_results.txt;
+run-msd-mace.in                      #运行lammps的NVT系统MD，输出msd数据存储到msd_results.txt;
 ```
 
 
@@ -37,13 +37,19 @@ run-msd-mace.in             #运行lammps的NVT系统MD，输出msd数据存储�
 ## plot相关脚本
 • plots/:画图相关脚本
 ```python
-plot-dp-test.py             #将deepmd输出文件进行画图（基于matplotlib)
+plot-dp-test.py                      #将deepmd输出文件进行画图（基于matplotlib)
 ```
 ## strucs相关脚本
 • strucs-scripts/结构处理:的相关脚本
 ```python
-check_density.py          #处理结构的密度（利用 ase package python check_axis.py  *.vasp)
-check_axis.py             #处理结构的abc以及aplha beta gamma晶格参数 执行方式python check_axis.py  *.vasp)
-check_nd.py               #处理结构得到中子衍射数据(利用 deby package) 
-change_poscar2xyz.py      #转换结构形式，获得xyz格式的文件
+check_density.py                     #处理结构的密度（利用 ase package python check_axis.py  *.vasp)
+check_axis.py                        #处理结构的abc以及aplha beta gamma晶格参数 执行方式python check_axis.py  *.vasp)
+check_nd.py                          #处理结构得到中子衍射数据(利用 deby package) 
+change_poscar2xyz.py                 #转换结构形式，获得xyz格式的文件
+```
+
+## 性质计算脚本
+• properties-scripts/性质计算的相关脚本
+```python
+calculate_micro_ion_conductivity.py  #微观角度计算离子电导率的计算脚本（ 利用ase package)
 ```
