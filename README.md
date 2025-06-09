@@ -37,8 +37,12 @@ run-msd-mace.in                      #运行lammps的NVT系统MD，输出msd数�
 ## plot相关脚本
 • plots/:画图相关脚本
 ```python
-plot-dp-test.py                      #将deepmd输出文件进行画图（基于matplotlib)
+plot-dp-test.py                      #直接对deepmd测试的输出文件绘图（基于matplotlib)
+vasp_aimd_plot.sh                    #提取VASP的AIMD输出文件信息绘图 (基于matplotlib) 包含能量、体积、温度、应力等
 ```
+
+
+
 ## strucs相关脚本
 • strucs-scripts/结构处理:的相关脚本
 ```python
