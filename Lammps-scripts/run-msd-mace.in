@@ -66,7 +66,7 @@ variable        myPyz equal pyz
 # Print thermodynamic data to 'thermo_results.txt' every 100 steps
 # 'append no' means the file will be overwritten or created fresh each run.
 # If you want to append data when restarting, change to 'append yes', but be careful with data integrity.
-fix             thermo_out all print 100 "${myStep} ${myTemp} ${myPE} ${myKE} ${myTotE} ${myPress} ${myPxx} ${myPyy} ${myPzz} ${myPxy} ${myPxz} ${myPyz}" file thermo_results.txt title "# Step Temp(K) PE(eV) KE(eV) TotE(eV) Press(kBar) Pxx Pyy Pzz Pxy Pxz Pyz" screen no append no
+fix             thermo_out all print 100 "${myStep} ${myTemp} ${myPE} ${myKE} ${myTotE} ${myPress} ${myPxx} ${myPyy} ${myPzz} ${myPxy} ${myPxz} ${myPyz}" file thermo_results.txt title "# Step Temp(K) PE(eV) KE(eV) TotE(eV) Press(kBar) Pxx Pyy Pzz Pxy Pxz Pyz" screen no 
 
 # -------------------- Output Settings - Trajectory --------------------
 # Dump atom coordinates to 'traj.lammpstrj' every 100 steps for trajectory analysis (e.g., MSD)
@@ -103,7 +103,7 @@ variable        msd_Zr equal c_msd_Zr[4]
 # 'append no' means the file will be overwritten or created fresh each run.
 # For MSD, it's generally recommended to start a new file or manage appending carefully,
 # as MSD is time-dependent and calculated from the start of the 'compute msd' command.
-fix             msd_out all print 100 "${myStep} ${msd_Na} ${msd_O} ${msd_P} ${msd_Si} ${msd_Zr}" file msd_results.txt title "# Step MSD_Na(A^2) MSD_O(A^2) MSD_P(A^2) MSD_Si(A^2) MSD_Zr(A^2)" screen no append no
+fix             msd_out all print 100 "${myStep} ${msd_Na} ${msd_O} ${msd_P} ${msd_Si} ${msd_Zr}" file msd_results.txt title "# Step MSD_Na(A^2) MSD_O(A^2) MSD_P(A^2) MSD_Si(A^2) MSD_Zr(A^2)" screen no
 
 # -------------------- Run Simulation --------------------
 # Run the simulation for 1,000,000 timesteps
