@@ -57,3 +57,12 @@ change_poscar2xyz.py                 #转换结构形式，获得xyz格式的文
 ```python
 calculate_micro_ion_conductivity.py  #微观角度计算离子电导率的计算脚本（ 利用ase package)
 ```
+
+
+
+## Machinelearning相关脚本
+• machinelearning-scripts/机器学习的相关脚本
+```python
+chgnet_train.py			    #chgnet训练脚本
+chgnet_grep.py			    #chgnet提取vasp的输出文件
+```
