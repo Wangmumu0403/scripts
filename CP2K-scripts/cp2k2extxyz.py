@@ -17,7 +17,7 @@ def SVD_A(A, b):
     # Handle singular values that are very close to zero for numerical stability
     s_inv = np.zeros_like(S)
     # A small tolerance to avoid division by zero or very small numbers
-    tol = np.finfo(S.dtype).eps * S.max()
+    tol = np.finfo(S.dtype).eps * S.max()å
     s_inv[S > tol] = 1 / S[S > tol]
     
     B = np.matmul(U.T, b)
