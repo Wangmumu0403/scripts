@@ -26,6 +26,16 @@ outcar_vasp2extxyz.py                #将OUTCAR转换为MACE的输入文件 (利
 
 ```
 
+
+
+## plot相关脚本
+• CP2K-script/:画图相关脚本
+```python
+cp2k2extxyz.py                       #将cp2k-aimd文件转换为extxyz文件（基于ase以及brucefan1983GPUMD)
+vasp_aimd_plot.sh                    #提取VASP的AIMD输出文件信息绘图 (基于matplotlib) 包含能量、体积、温度、应力等
+```
+
+
 ## lammps相关脚本
 • Lammps-scripts/Lammps相关脚本
 ```python
